@@ -2,348 +2,571 @@
 <html lang="si">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no"/>
 <title>Xtreme Crash Predictor : 1xbet</title>
 <style>
-    body {
-      background: #000;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    h1, h2, .signal-time, .next-signal {
-      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-    }
-    .circle {
-      width: 200px;
-      height: 200px;
-      background-color: #1a0000;
-      border: 5px solid white;
-      border-radius: 50%;
-      margin: 20px auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 30px orange, 0 0 60px orange, 0 0 90px orange;
-    }
-    .winner {
-      color: white;
-      font-size: 1.5em;
-      text-shadow: 0 0 10px purple, 0 0 20px purple;
-    }
-    .signal-box {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 20px;
-      border: 2px solid #00ffff;
-      border-radius: 10px;
-      font-size: 1.3em;
-      text-shadow: 0 0 8px #00ffff;
-      box-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff;
-    }
-    .arrows {
-      display: flex;
-      justify-content: center;
-      font-size: 2em;
-      color: red;
-      animation: arrowsMove 1s infinite alternate;
-    }
-    @keyframes arrowsMove {
-      from { transform: translateX(-10px); }
-      to { transform: translateX(10px); }
-    }
-    .next-signal {
-      font-size: 1.5em;
-      margin-top: 20px;
-    }
-    .loading-dots::after {
-      content: '';
-      display: inline-block;
-      animation: dots 1.5s steps(3, end) infinite;
-    }
-    @keyframes dots {
-      0% { content: ''; }
-      33% { content: '.'; }
-      66% { content: '..'; }
-      100% { content: '...'; }
-    }
-    .btns {
-      margin-top: 40px;
-    }
-    .btns a {
-      display: inline-block;
-      margin: 0 10px;
-      padding: 10px 20px;
-      background: #222;
-      color: #00ffff;
-      border-radius: 10px;
-      text-decoration: none;
-      box-shadow: 0 0 10px #00ffff;
-    }
-    .signal-time {
-      margin: 10px 0;
-      font-size: 1.2em;
-    }
-    .blinking {
-      animation: blinkEffect 1s infinite;
-    }
-    @keyframes blinkEffect {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-.title {
-  font-size: 2.5em;
-  letter-spacing: 2px;
-  background: linear-gradient(90deg, #00fff7, #a600ff, #00fff7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 10px #00fff7, 0 0 20px #a600ff;
-  animation: glow 3s ease-in-out infinite alternate;
-}
-@keyframes glow {
-  0% {
-    text-shadow: 0 0 10px #00fff7, 0 0 20px #a600ff;
+  * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+    box-sizing: border-box;
   }
-  100% {
-    text-shadow: 0 0 20px #a600ff, 0 0 40px #00fff7;
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    background: #0a0a1a;
+    color: white;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    text-align: center;
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(100, 0, 255, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(0, 200, 255, 0.15) 0%, transparent 50%);
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
   }
-}
-.header-box {
-  animation: argbGlow 4s infinite alternate;
-  padding: 10px 20px;
-  margin: 20px auto;
-  display: inline-block;
-  border: 2px solid white;
-  border-radius: 12px;
-  outline: none;
-  color: #ffffff;
-  font-size: 2em;
-  box-shadow: 0 0 10px #8000ff, 0 0 20px #8000ff, 0 0 30px #8000ff;
-  text-shadow: 0 0 10px #a855f7;
-}
-@keyframes argbGlow {
-  0% {
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.6), 0 0 20px rgba(255, 0, 0, 0.4), 0 0 30px rgba(255, 0, 0, 0.3);
+  
+  .container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
   }
-  25% {
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.6), 0 0 20px rgba(0, 255, 0, 0.4), 0 0 30px rgba(0, 255, 0, 0.3);
+  
+  .header-box {
+    background: linear-gradient(135deg, #1a0033, #0d001a);
+    border: 1px solid rgba(138, 43, 226, 0.5);
+    border-radius: 15px;
+    padding: 15px;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 
+      0 0 15px rgba(138, 43, 226, 0.3),
+      0 0 30px rgba(138, 43, 226, 0.2);
+    animation: headerGlow 6s infinite alternate;
   }
-  50% {
-    box-shadow: 0 0 10px rgba(0, 0, 255, 0.6), 0 0 20px rgba(0, 0, 255, 0.4), 0 0 30px rgba(0, 0, 255, 0.3);
+  
+  @keyframes headerGlow {
+    0% { box-shadow: 0 0 15px rgba(138, 43, 226, 0.3), 0 0 30px rgba(138, 43, 226, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(100, 0, 255, 0.4), 0 0 40px rgba(100, 0, 255, 0.3); }
+    100% { box-shadow: 0 0 15px rgba(138, 43, 226, 0.3), 0 0 30px rgba(138, 43, 226, 0.2); }
   }
-  75% {
-    box-shadow: 0 0 10px rgba(255, 255, 0, 0.6), 0 0 20px rgba(255, 255, 0, 0.4), 0 0 30px rgba(255, 255, 0, 0.3);
+  
+  .title {
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #00fff7, #a600ff, #00fff7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(0, 255, 247, 0.3);
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.3;
   }
-  100% {
-    box-shadow: 0 0 10px rgba(255, 0, 255, 0.6), 0 0 20px rgba(255, 0, 255, 0.4), 0 0 30px rgba(255, 0, 255, 0.3);
+  
+  .time-display {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 500px;
+    margin: 10px 0;
+    font-size: clamp(0.8rem, 3vw, 0.9rem);
+    color: #ccc;
+    gap: 10px;
   }
-}
-.countdown-inside {
-  margin-top: 10px;
-  font-size: 1.1em;
-  color: #ffffff;
-  text-shadow: 0 0 8px #00ffff, 0 0 15px #00ffff;
-}
-.countdown-blink {
-  animation: blinkCountdown 1s infinite;
-  color: #ff0000;
-  text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
-}
-@keyframes blinkCountdown {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-</style>
-
-<style>
+  
+  .time-display span {
+    background: rgba(20, 20, 40, 0.7);
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .signal-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 15px 0;
+  }
+  
+  .circle {
+    width: clamp(180px, 60vw, 220px);
+    height: clamp(180px, 60vw, 220px);
+    margin: 0 auto;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: rgba(10, 10, 30, 0.7);
+    border: 2px solid rgba(138, 43, 226, 0.5);
+    box-shadow: 
+      0 0 20px rgba(138, 43, 226, 0.3),
+      inset 0 0 20px rgba(138, 43, 226, 0.2);
+    animation: circlePulse 4s infinite alternate;
+  }
+  
+  @keyframes circlePulse {
+    0% { box-shadow: 0 0 20px rgba(138, 43, 226, 0.3), inset 0 0 20px rgba(138, 43, 226, 0.2); }
+    100% { box-shadow: 0 0 30px rgba(100, 0, 255, 0.4), inset 0 0 30px rgba(100, 0, 255, 0.3); }
+  }
+  
+  .signal-content {
+    text-align: center;
+    padding: 15px;
+    width: 100%;
+  }
+  
+  .next-signal {
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    word-break: break-word;
+  }
+  
+  .countdown {
+    font-size: clamp(1rem, 3.5vw, 1.2rem);
+    color: #00ffff;
+    font-weight: 500;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    transition: all 0.3s ease;
+  }
+  
+  .countdown.blink {
+    animation: blink 1s infinite;
+  }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  
+  .arrows {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    color: #ff3366;
+    margin: 10px 0;
+    animation: arrowPulse 1.5s infinite alternate;
+  }
+  
+  @keyframes arrowPulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    100% { transform: scale(1.1); opacity: 1; }
+  }
+  
+  .signal-box {
+    background: linear-gradient(135deg, #1a0033, #0d001a);
+    border: 1px solid rgba(0, 255, 255, 0.5);
+    border-radius: 12px;
+    padding: 12px;
+    margin: 15px 0;
+    width: 100%;
+    max-width: 500px;
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    font-weight: 500;
+    color: #00ffff;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    animation: signalBoxGlow 3s infinite alternate;
+  }
+  
+  @keyframes signalBoxGlow {
+    0% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
+    100% { box-shadow: 0 0 25px rgba(0, 255, 255, 0.5); }
+  }
+  
+  .btns {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: clamp(0.8rem, 3vw, 0.9rem);
+    transition: all 0.3s ease;
+    max-width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .btn-whatsapp {
+    background: rgba(37, 211, 102, 0.1);
+    border: 1px solid rgba(37, 211, 102, 0.5);
+    color: #25D366;
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.2);
+  }
+  
+  .btn-telegram {
+    background: rgba(0, 136, 204, 0.1);
+    border: 1px solid rgba(0, 136, 204, 0.5);
+    color: #0088cc;
+    box-shadow: 0 0 15px rgba(0, 136, 204, 0.2);
+  }
+  
+  .btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .btn i {
+    font-size: 1.2em;
+  }
+  
+  footer {
+    width: 100%;
+    padding: 15px;
+    font-size: clamp(0.7rem, 3vw, 0.8rem);
+    color: #888;
+    background: rgba(10, 10, 30, 0.7);
+    border-top: 1px solid rgba(138, 43, 226, 0.3);
+    margin-top: auto;
+  }
+  
+  footer a {
+    color: #a600ff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  /* Loading animation */
+  .loading-dots {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 20px;
+  }
+  
+  .loading-dots div {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #00ffff;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+  
+  .loading-dots div:nth-child(1) {
+    left: 8px;
+    animation: loading-dots1 0.6s infinite;
+  }
+  
+  .loading-dots div:nth-child(2) {
+    left: 8px;
+    animation: loading-dots2 0.6s infinite;
+  }
+  
+  .loading-dots div:nth-child(3) {
+    left: 32px;
+    animation: loading-dots2 0.6s infinite;
+  }
+  
+  .loading-dots div:nth-child(4) {
+    left: 56px;
+    animation: loading-dots3 0.6s infinite;
+  }
+  
+  @keyframes loading-dots1 {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+  }
+  
+  @keyframes loading-dots3 {
+    0% { transform: scale(1); }
+    100% { transform: scale(0); }
+  }
+  
+  @keyframes loading-dots2 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(24px, 0); }
+  }
+  
+  /* Popup styles */
   #popupOverlay {
     display: none;
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    z-index: 999;
-    animation: fadeIn 0.5s ease-in-out;
-  }
-
-  #popupBox {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.95);
-    background: #111;
-    color: #fff;
-    padding: 25px;
-    border: 2px solid #f00;
-    border-radius: 10px;
-    box-shadow: 0 0 30px #f00;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
     z-index: 1000;
-    max-width: 90%;
-    width: 300px;
-    font-size: 0.95em;
-    animation: popIn 0.5s ease-out forwards;
-    display: none;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.4s ease-out;
   }
-
-  #popupBox h3 {
-    margin-top: 0;
-    color: #ff4444;
-    font-size: 1.2em;
-  }
-
-  #popupBox .close-btn {
-    position: absolute;
-    top: 5px;
-    right: 12px;
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 20px;
-    cursor: pointer;
-  }
-
+  
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
   }
-
+  
+  #popupBox {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #1a0033, #0d001a);
+    border: 1px solid rgba(138, 43, 226, 0.5);
+    border-radius: 15px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
+    z-index: 1001;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+  
   @keyframes popIn {
     from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
     to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
   }
-
-  #popupBox p {
-    margin-bottom: 15px;
-    line-height: 1.6;
-  }
-</style>
-
-<style>
-  #popupBox.hide {
-    animation: popOut 0.4s ease-in-out forwards;
-  }
+  
   @keyframes popOut {
     from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
     to { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
   }
+  
+  #popupBox h3 {
+    margin-top: 0;
+    color: #00ffff;
+    font-size: 1.2em;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+    padding-bottom: 10px;
+  }
+  
+  #popupBox p {
+    font-size: 0.9em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  #popupBox .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  #popupBox .close-btn:hover {
+    color: #ff3366;
+  }
 </style>
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<h1 class="header-box">Xtreme Crash Predictor : 1xbet</h1>
-<div class="signal-time">Live Time: <span id="live-time"></span></div>
-<div class="signal-time">Date: <span id="live-date"></span></div>
-<div class="arrows">&lt;&lt;&lt;</div>
-<div class="circle">
-  <div>
-    <div class="winner" id="next-signal">Next Signal Loading</div>
-    <div id="countdown" class="countdown-inside">Next in: 00:00</div>
+<div class="container">
+  <div class="header-box">
+    <h1 class="title">Xtreme Crash Predictor : 1xbet</h1>
   </div>
+  
+  <div class="time-display">
+    <span id="live-time">00:00:00</span>
+    <span id="live-date">2023-01-01</span>
+  </div>
+  
+  <div class="arrows">&lt;&lt;&lt;</div>
+  
+  <div class="signal-container">
+    <div class="circle">
+      <div class="signal-content">
+        <div class="next-signal" id="next-signal">Next Signal Loading</div>
+        <div class="countdown" id="countdown">Next in: 00:00</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="arrows">&gt;&gt;&gt;</div>
+  
+  <div class="signal-box">Odd - 5× | Guaranteed Win</div>
+  
+  <div class="btns">
+    <a href="https://chat.whatsapp.com/Jiyuy808D5Q2a8P7IEW72g" class="btn btn-whatsapp" target="_blank">
+      <i class="fab fa-whatsapp"></i> WhatsApp
+    </a>
+    <a href="https://t.me/+Ems_0HKtv_gwZmQ1" class="btn btn-telegram" target="_blank">
+      <i class="fab fa-telegram"></i> Telegram
+    </a>
+  </div>
+  
+  <footer>
+    POWERED BY <a href="#" target="_blank">XTREME PREDICTOR</a>
+  </footer>
 </div>
-<div class="arrows" style="color: red; font-size: 2em; margin-top: 20px;">&gt;&gt;&gt;</div>
-<div class="signal-box">Odd - 5× | Guaranteed Win</div>
-<div class="btns">
-<a href="https://chat.whatsapp.com/Jiyuy808D5Q2a8P7IEW72g" style="box-shadow: 0 0 10px #25D366; color: #25D366;" target="_blank">WhatsApp</a>
-<a href="https://t.me/+Ems_0HKtv_gwZmQ1" target="_blank">Telegram</a>
-</div>
-<script>
-    function updateTime() {
-      const now = new Date();
-      document.getElementById('live-time').textContent = now.toLocaleTimeString();
-      document.getElementById('live-date').textContent = now.toISOString().split('T')[0];
-    }
-    setInterval(updateTime, 1000);
-    updateTime();
-    const now = new Date();
-    const anchorTime = new Date(now);
-    anchorTime.setHours(20, 38, 0, 0);
-    if (now < anchorTime) {
-      anchorTime.setDate(anchorTime.getDate() - 1);
-    }
-    const intervalMs = 5 * 60 * 1000;
-    let lastSignalBlockTime = null;
-    let showLoading = false;
-    const alertSound = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
-    function updateNextSignal() {
-      const now = new Date();
-      let diff = now - anchorTime;
-      if (diff < 0) diff = 0;
-      const nextBlockTime = new Date(anchorTime.getTime() + Math.ceil(diff / intervalMs) * intervalMs);
-      const startTime = new Date(nextBlockTime);
-      const endTime = new Date(nextBlockTime.getTime() + 1 * 60 * 1000);
-      const displayString = `${startTime.getHours().toString().padStart(2, '0')}:${startTime.getMinutes().toString().padStart(2, '0')} / ${endTime.getHours().toString().padStart(2, '0')}:${endTime.getMinutes().toString().padStart(2, '0')}`;
-      const nextSignalElem = document.getElementById("next-signal");
-      const timeDiffSec = Math.abs(startTime - now) / 1000;
-      if (timeDiffSec <= 10) {
-        nextSignalElem.classList.add("blinking");
-      } else {
-        nextSignalElem.classList.remove("blinking");
-      }
-      if (!lastSignalBlockTime || nextBlockTime.getTime() !== lastSignalBlockTime.getTime()) {
-        showLoading = true;
-        lastSignalBlockTime = nextBlockTime;
-        nextSignalElem.classList.add("loading-dots");
-        nextSignalElem.textContent = "Next Signal Loading";
-        setTimeout(() => {
-          showLoading = false;
-          nextSignalElem.classList.remove("loading-dots");
-          nextSignalElem.textContent = displayString;
-          alertSound.play().catch(e => console.log("Sound not played:", e));
-        }, 3000);
-      }
-      if (!showLoading) {
-        nextSignalElem.textContent = displayString;
-      }
-      const countdownElem = document.getElementById("countdown");
-      const countdown = Math.max(0, Math.floor((startTime - now) / 1000));
-      const min = String(Math.floor(countdown / 60)).padStart(2, '0');
-      const sec = String(countdown % 60).padStart(2, '0');
-      countdownElem.textContent = `Next in: ${min}:${sec}`;
-      if (countdown <= 10) {
-        countdownElem.classList.add("countdown-blink");
-      } else {
-        countdownElem.classList.remove("countdown-blink");
-      }
-    }
-    setInterval(updateNextSignal, 1000);
-    updateNextSignal();
-</script>
-<footer style="margin-top: 50px; color: white; text-shadow: 0 0 10px #ffffff;">
-  POWERED BY <a href="#" style="color: white; text-decoration: none;" target="_blank">XTREME PREDICTOR</a>
-</footer>
 
 <div id="popupOverlay"></div>
 <div id="popupBox">
   <button class="close-btn" onclick="closePopup()">&times;</button>
   <h3>උපදෙස් එකතුවක්</h3>
   <p>මෙම ක්‍රෑෂ් ක්‍රීඩාව සඳහා ඔබට ලබාදෙන සංඥා වලට අනුව ක්‍රීඩා කිරීමේදී, එකම මුදලක් භාවිතා කිරීම සුදුසුම ක්‍රමය වේ.</p>
-  <p>“මාර්ටින් ගේල් (Martingale)” ක්‍රමය හෝ ඊට සමාන ගණනාවර්ධන ක්‍රමවේදයන් භාවිතයෙන් ක්‍රීඩා කිරීමෙන් ඔබගේ මුදල් කළමනාකරණය පාලනයෙන් පිට විය හැකි අතර, මෙම ක්‍රමය ක්‍රීඩාවේ ඇල්ගොරිතමය එය හඳුනාගෙන ඔබ මුදල් ගුණ කරන ආකාරය අනුව ක්‍රීඩාව ඔබට ජය ලබාදීම වළක්වනු ඇත.</p>
+  <p>"මාර්ටින් ගේල් (Martingale)" ක්‍රමය හෝ ඊට සමාන ගණනාවර්ධන ක්‍රමවේදයන් භාවිතයෙන් ක්‍රීඩා කිරීමෙන් ඔබගේ මුදල් කළමනාකරණය පාලනයෙන් පිට විය හැකි අතර, මෙම ක්‍රමය ක්‍රීඩාවේ ඇල්ගොරිතමය එය හඳුනාගෙන ඔබ මුදල් ගුණ කරන ආකාරය අනුව ක්‍රීඩාව ඔබට ජය ලබාදීම වළක්වනු ඇත.</p>
   <p>ඒ වෙනුවට, එකම මුදලක් යොදා ලබාදෙන සංඥාවට අනුව ක්‍රීඩා කිරීම සුදුසුයි.</p>
-  <p style="text-align: center;">- Xtreme Predictor Team -</p>
+  <p style="text-align: center; color: #a600ff; font-weight: 500;">- Xtreme Predictor Team -</p>
 </div>
 
 <script>
+  // Enhanced mobile prevention
+  document.addEventListener('gesturestart', function(e) {
+    e.preventDefault();
+    document.body.style.zoom = "100%";
+  });
+  
+  document.addEventListener('touchmove', function(e) {
+    if (e.scale !== 1) { 
+      e.preventDefault(); 
+      document.body.style.zoom = "100%";
+    }
+  }, { passive: false });
+  
+  // Prevent text selection
+  document.addEventListener('selectstart', function(e) {
+    e.preventDefault();
+  });
+  
+  // Disable context menu
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+  
+  // Update time
+  function updateTime() {
+    const now = new Date();
+    document.getElementById('live-time').textContent = now.toLocaleTimeString();
+    document.getElementById('live-date').textContent = now.toISOString().split('T')[0];
+  }
+  setInterval(updateTime, 1000);
+  updateTime();
+  
+  // Signal prediction logic
+  const now = new Date();
+  const anchorTime = new Date(now);
+  anchorTime.setHours(20, 38, 0, 0);
+  if (now < anchorTime) {
+    anchorTime.setDate(anchorTime.getDate() - 1);
+  }
+  const intervalMs = 5 * 60 * 1000;
+  let lastSignalBlockTime = null;
+  let showLoading = false;
+  
+  const alertSound = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+  
+  function updateNextSignal() {
+    const now = new Date();
+    let diff = now - anchorTime;
+    if (diff < 0) diff = 0;
+    
+    const nextBlockTime = new Date(anchorTime.getTime() + Math.ceil(diff / intervalMs) * intervalMs);
+    const startTime = new Date(nextBlockTime);
+    const endTime = new Date(nextBlockTime.getTime() + 1 * 60 * 1000);
+    
+    const displayString = `${startTime.getHours().toString().padStart(2, '0')}:${startTime.getMinutes().toString().padStart(2, '0')} - ${endTime.getHours().toString().padStart(2, '0')}:${endTime.getMinutes().toString().padStart(2, '0')}`;
+    
+    const nextSignalElem = document.getElementById("next-signal");
+    const countdownElem = document.getElementById("countdown");
+    
+    const timeDiffSec = Math.abs(startTime - now) / 1000;
+    
+    // Update signal display
+    if (!lastSignalBlockTime || nextBlockTime.getTime() !== lastSignalBlockTime.getTime()) {
+      showLoading = true;
+      lastSignalBlockTime = nextBlockTime;
+      
+      // Show loading animation
+      nextSignalElem.innerHTML = '<div class="loading-dots"><div></div><div></div><div></div><div></div></div>';
+      
+      setTimeout(() => {
+        showLoading = false;
+        nextSignalElem.innerHTML = displayString;
+        try {
+          alertSound.play().catch(e => console.log("Sound playback prevented:", e));
+        } catch(e) {
+          console.log("Sound error:", e);
+        }
+      }, 3000);
+    }
+    
+    if (!showLoading) {
+      nextSignalElem.textContent = displayString;
+    }
+    
+    // Update countdown
+    const countdown = Math.max(0, Math.floor((startTime - now) / 1000));
+    const min = String(Math.floor(countdown / 60)).padStart(2, '0');
+    const sec = String(countdown % 60).padStart(2, '0');
+    countdownElem.textContent = `Next in: ${min}:${sec}`;
+    
+    // Blink effect when close to signal
+    if (countdown <= 10) {
+      countdownElem.classList.add("blink");
+      nextSignalElem.style.color = "#ff3366";
+      nextSignalElem.style.textShadow = "0 0 10px rgba(255, 51, 102, 0.7)";
+    } else {
+      countdownElem.classList.remove("blink");
+      nextSignalElem.style.color = "#ffffff";
+      nextSignalElem.style.textShadow = "0 0 10px rgba(255, 255, 255, 0.3)";
+    }
+  }
+  
+  setInterval(updateNextSignal, 1000);
+  updateNextSignal();
+  
+  // Popup functions
   function showPopup() {
     document.getElementById('popupOverlay').style.display = 'block';
     const popup = document.getElementById('popupBox');
-    popup.classList.remove('hide');
     popup.style.display = 'block';
   }
-
+  
   function closePopup() {
     const popup = document.getElementById('popupBox');
-    popup.classList.add('hide');
-    document.getElementById('popupOverlay').style.display = 'none';
+    popup.style.animation = 'popOut 0.3s ease-out forwards';
+    
     setTimeout(() => {
+      document.getElementById('popupOverlay').style.display = 'none';
       popup.style.display = 'none';
-      popup.classList.remove('hide');
-    }, 400);
+      popup.style.animation = '';
+    }, 300);
   }
-
-  window.onload = function() {
-    setTimeout(showPopup, 6000);
-  };
+  
+  // Show popup after delay
+  window.addEventListener('load', function() {
+    setTimeout(showPopup, 5000);
+  });
 </script>
-
 </body>
 </html>
