@@ -227,6 +227,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
   }
   
   @keyframes signalBoxGlow {
@@ -427,6 +428,11 @@
   #popupBox .close-btn:hover {
     color: #ff3366;
   }
+
+  .calc-icon {
+    color: #00ffff;
+    font-size: 1.1em;
+  }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -458,7 +464,7 @@
   <div class="arrows">&gt;&gt;&gt;</div>
   
   <div class="signal-box" id="signal-box">
-    Calculating optimal odds...
+    <i class="fas fa-bolt calc-icon"></i> Calculating optimal odds...
   </div>
   
   <div class="btns">
@@ -521,18 +527,18 @@
   // Signal prediction logic
   const now = new Date();
   const signalPattern = [
-    { minutes: 3, duration: 1, odds: "5× | Guaranteed Win" },
-    { minutes: 8, duration: 1, odds: "3× | High Probability" },
-    { minutes: 13, duration: 1, odds: "5× | Guaranteed Win" },
-    { minutes: 18, duration: 1, odds: "3× | High Probability" },
-    { minutes: 23, duration: 1, odds: "5× | Guaranteed Win" },
-    { minutes: 28, duration: 1, odds: "3× | High Probability" },
-    { minutes: 33, duration: 1, odds: "5× | Guaranteed Win" },
-    { minutes: 38, duration: 1, odds: "3× | High Probability" },
-    { minutes: 43, duration: 1, odds: "5× | Guaranteed Win" },
-    { minutes: 48, duration: 1, odds: "3× | High Probability" },
-    { minutes: 53, duration: 1, odds: "5× | Guaranteed Win" },
-    { minutes: 58, duration: 1, odds: "3× | High Probability" }
+    { minutes: 3, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
+    { minutes: 8, duration: 1, odds: "3× | High Probability", icon: "chart-line" },
+    { minutes: 13, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
+    { minutes: 18, duration: 1, odds: "3× | High Probability", icon: "chart-line" },
+    { minutes: 23, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
+    { minutes: 28, duration: 1, odds: "3× | High Probability", icon: "chart-line" },
+    { minutes: 33, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
+    { minutes: 38, duration: 1, odds: "3× | High Probability", icon: "chart-line" },
+    { minutes: 43, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
+    { minutes: 48, duration: 1, odds: "3× | High Probability", icon: "chart-line" },
+    { minutes: 53, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
+    { minutes: 58, duration: 1, odds: "3× | High Probability", icon: "chart-line" }
   ];
   
   let currentPhase = 'initializing';
@@ -591,6 +597,7 @@
           start: nextSignal,
           end: endTime,
           odds: signalPattern[i].odds,
+          icon: signalPattern[i].icon,
           index: i
         };
       }
@@ -606,6 +613,7 @@
       start: nextHour,
       end: endTime,
       odds: signalPattern[0].odds,
+      icon: signalPattern[0].icon,
       index: 0
     };
   }
@@ -624,7 +632,7 @@
           signalStartTime = nextSignal.start;
           signalEndTime = nextSignal.end;
           currentSignalIndex = nextSignal.index;
-          signalBox.textContent = `Odd - ${nextSignal.odds}`;
+          signalBox.innerHTML = `<i class="fas fa-${nextSignal.icon} calc-icon"></i> Odd - ${nextSignal.odds}`;
           currentPhase = 'upcoming';
           initialLoadComplete = true;
           playDeepBeep(); // Play deep beep on initial signal
@@ -637,7 +645,7 @@
     // Handle loading phase (only between signals, not after initial load)
     if (currentPhase === 'loading' && initialLoadComplete) {
       signalContent.innerHTML = '<div class="loading-dots"><div></div><div></div><div></div><div></div></div>';
-      signalBox.textContent = 'Calculating optimal odds...';
+      signalBox.innerHTML = '<i class="fas fa-bolt calc-icon"></i> Calculating optimal odds...';
       return;
     }
     
@@ -658,7 +666,7 @@
         signalStartTime = nextSignal.start;
         signalEndTime = nextSignal.end;
         currentSignalIndex = nextSignal.index;
-        signalBox.textContent = `Odd - ${nextSignal.odds}`;
+        signalBox.innerHTML = `<i class="fas fa-${nextSignal.icon} calc-icon"></i> Odd - ${nextSignal.odds}`;
         currentPhase = 'upcoming';
         playBeep();
       }, 8000);
@@ -705,7 +713,7 @@
       signalStartTime = nextSignal.start;
       signalEndTime = nextSignal.end;
       currentSignalIndex = nextSignal.index;
-      signalBox.textContent = `Odd - ${nextSignal.odds}`;
+      signalBox.innerHTML = `<i class="fas fa-${nextSignal.icon} calc-icon"></i> Odd - ${nextSignal.odds}`;
       currentPhase = 'upcoming';
       initialLoadComplete = true;
       playDeepBeep(); // Play deep beep on initial signal
