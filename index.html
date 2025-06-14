@@ -120,19 +120,25 @@
       0 0 20px rgba(138, 43, 226, 0.3),
       inset 0 0 20px rgba(138, 43, 226, 0.2);
     animation: circlePulse 4s infinite alternate;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
   }
   
   .circle.active-signal {
     border-color: #ff3366;
     box-shadow: 
-      0 0 20px rgba(255, 51, 102, 0.5),
-      inset 0 0 20px rgba(255, 51, 102, 0.3);
+      0 0 30px rgba(255, 51, 102, 0.7),
+      inset 0 0 30px rgba(255, 51, 102, 0.5);
+    animation: circlePulseRed 4s infinite alternate;
   }
   
   @keyframes circlePulse {
     0% { box-shadow: 0 0 20px rgba(138, 43, 226, 0.3), inset 0 0 20px rgba(138, 43, 226, 0.2); }
     100% { box-shadow: 0 0 30px rgba(100, 0, 255, 0.4), inset 0 0 30px rgba(100, 0, 255, 0.3); }
+  }
+  
+  @keyframes circlePulseRed {
+    0% { box-shadow: 0 0 30px rgba(255, 51, 102, 0.7), inset 0 0 30px rgba(255, 51, 102, 0.5); }
+    100% { box-shadow: 0 0 40px rgba(255, 51, 102, 0.9), inset 0 0 40px rgba(255, 51, 102, 0.7); }
   }
   
   .signal-content {
@@ -145,14 +151,10 @@
     font-size: clamp(1.1rem, 4vw, 1.4rem);
     font-weight: 600;
     margin-bottom: 10px;
+    color: #ffffff;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     transition: all 0.3s ease;
     word-break: break-word;
-  }
-  
-  .next-signal.active-signal {
-    color: #ff3366;
-    text-shadow: 0 0 10px rgba(255, 51, 102, 0.5);
   }
   
   .system-text {
@@ -225,24 +227,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-  }
-  
-  .signal-box.active-signal {
-    border-color: #ff3366;
-    color: #ff3366;
-    box-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
-    animation: signalBoxGlowRed 3s infinite alternate;
   }
   
   @keyframes signalBoxGlow {
     0% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
     100% { box-shadow: 0 0 25px rgba(0, 255, 255, 0.5); }
-  }
-  
-  @keyframes signalBoxGlowRed {
-    0% { box-shadow: 0 0 15px rgba(255, 51, 102, 0.5); }
-    100% { box-shadow: 0 0 25px rgba(255, 51, 102, 0.7); }
   }
   
   .btns {
@@ -438,15 +427,6 @@
   #popupBox .close-btn:hover {
     color: #ff3366;
   }
-
-  .calc-icon {
-    color: #00ffff;
-    font-size: 1.1em;
-  }
-
-  .calc-icon.active-signal {
-    color: #ff3366;
-  }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -478,7 +458,7 @@
   <div class="arrows">&gt;&gt;&gt;</div>
   
   <div class="signal-box" id="signal-box">
-    <i class="fas fa-bolt calc-icon"></i> Calculating optimal odds...
+    Calculating optimal odds...
   </div>
   
   <div class="btns">
@@ -541,18 +521,18 @@
   // Signal prediction logic
   const now = new Date();
   const signalPattern = [
-    { minutes: 3, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
-    { minutes: 8, duration: 1, odds: "3× | High Probability", icon: "chart-line" },
-    { minutes: 13, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
-    { minutes: 18, duration: 1, odds: "3× | High Probability", icon: "chart-line" },
-    { minutes: 23, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
-    { minutes: 28, duration: 1, odds: "3× | High Probability", icon: "chart-line" },
-    { minutes: 33, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
-    { minutes: 38, duration: 1, odds: "3× | High Probability", icon: "chart-line" },
-    { minutes: 43, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
-    { minutes: 48, duration: 1, odds: "3× | High Probability", icon: "chart-line" },
-    { minutes: 53, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
-    { minutes: 58, duration: 1, odds: "3× | High Probability", icon: "chart-line" }
+    { minutes: 3, duration: 1, odds: "5× | Guaranteed Win" },
+    { minutes: 8, duration: 1, odds: "3× | High Probability" },
+    { minutes: 13, duration: 1, odds: "5× | Guaranteed Win" },
+    { minutes: 18, duration: 1, odds: "3× | High Probability" },
+    { minutes: 23, duration: 1, odds: "5× | Guaranteed Win" },
+    { minutes: 28, duration: 1, odds: "3× | High Probability" },
+    { minutes: 33, duration: 1, odds: "5× | Guaranteed Win" },
+    { minutes: 38, duration: 1, odds: "3× | High Probability" },
+    { minutes: 43, duration: 1, odds: "5× | Guaranteed Win" },
+    { minutes: 48, duration: 1, odds: "3× | High Probability" },
+    { minutes: 53, duration: 1, odds: "5× | Guaranteed Win" },
+    { minutes: 58, duration: 1, odds: "3× | High Probability" }
   ];
   
   let currentPhase = 'initializing';
@@ -566,6 +546,7 @@
   let popupShown = false;
   
   const alertSound = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+  const deepSound = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg"); // Replace with actual deep sound
   const signalCircle = document.getElementById("signal-circle");
   const signalBox = document.getElementById("signal-box");
   
@@ -578,10 +559,19 @@
     }
   }
   
+  function playDeepBeep() {
+    try {
+      const sound = deepSound.cloneNode();
+      sound.play().catch(e => console.log("Deep sound playback prevented:", e));
+    } catch(e) {
+      console.log("Deep sound error:", e);
+    }
+  }
+  
   function playDoubleBeep() {
     if (!hasPlayedDoubleBeep) {
-      playBeep();
-      setTimeout(playBeep, 300);
+      playDeepBeep();
+      setTimeout(playDeepBeep, 300);
       hasPlayedDoubleBeep = true;
     }
   }
@@ -601,7 +591,6 @@
           start: nextSignal,
           end: endTime,
           odds: signalPattern[i].odds,
-          icon: signalPattern[i].icon,
           index: i
         };
       }
@@ -617,7 +606,6 @@
       start: nextHour,
       end: endTime,
       odds: signalPattern[0].odds,
-      icon: signalPattern[0].icon,
       index: 0
     };
   }
@@ -636,10 +624,10 @@
           signalStartTime = nextSignal.start;
           signalEndTime = nextSignal.end;
           currentSignalIndex = nextSignal.index;
-          signalBox.innerHTML = `<i class="fas fa-${nextSignal.icon} calc-icon"></i> Odd - ${nextSignal.odds}`;
+          signalBox.textContent = `Odd - ${nextSignal.odds}`;
           currentPhase = 'upcoming';
           initialLoadComplete = true;
-          playBeep();
+          playDeepBeep(); // Play deep beep on initial signal
           setTimeout(showPopup, 5000);
         }, 8000);
       }
@@ -649,7 +637,7 @@
     // Handle loading phase (only between signals, not after initial load)
     if (currentPhase === 'loading' && initialLoadComplete) {
       signalContent.innerHTML = '<div class="loading-dots"><div></div><div></div><div></div><div></div></div>';
-      signalBox.innerHTML = '<i class="fas fa-bolt calc-icon"></i> Calculating optimal odds...';
+      signalBox.textContent = 'Calculating optimal odds...';
       return;
     }
     
@@ -658,8 +646,6 @@
       currentPhase = 'signal';
       hasPlayedDoubleBeep = false;
       signalCircle.classList.add('active-signal');
-      signalBox.classList.add('active-signal');
-      document.querySelector('.calc-icon').classList.add('active-signal');
       playDoubleBeep();
     }
     
@@ -667,14 +653,12 @@
     if (currentPhase === 'signal' && now >= signalEndTime) {
       currentPhase = 'loading';
       signalCircle.classList.remove('active-signal');
-      signalBox.classList.remove('active-signal');
-      document.querySelector('.calc-icon').classList.remove('active-signal');
       setTimeout(() => {
         const nextSignal = calculateNextSignal(now);
         signalStartTime = nextSignal.start;
         signalEndTime = nextSignal.end;
         currentSignalIndex = nextSignal.index;
-        signalBox.innerHTML = `<i class="fas fa-${nextSignal.icon} calc-icon"></i> Odd - ${nextSignal.odds}`;
+        signalBox.textContent = `Odd - ${nextSignal.odds}`;
         currentPhase = 'upcoming';
         playBeep();
       }, 8000);
@@ -686,7 +670,7 @@
       const displayString = `${signalStartTime.getHours().toString().padStart(2, '0')}:${signalStartTime.getMinutes().toString().padStart(2, '0')} - ${signalEndTime.getHours().toString().padStart(2, '0')}:${signalEndTime.getMinutes().toString().padStart(2, '0')}`;
       
       signalContent.innerHTML = `
-        <div class="next-signal active-signal">${displayString}</div>
+        <div class="next-signal">${displayString}</div>
         <div class="countdown" id="countdown">End in: 00:00</div>
       `;
       
@@ -721,10 +705,10 @@
       signalStartTime = nextSignal.start;
       signalEndTime = nextSignal.end;
       currentSignalIndex = nextSignal.index;
-      signalBox.innerHTML = `<i class="fas fa-${nextSignal.icon} calc-icon"></i> Odd - ${nextSignal.odds}`;
+      signalBox.textContent = `Odd - ${nextSignal.odds}`;
       currentPhase = 'upcoming';
       initialLoadComplete = true;
-      playBeep();
+      playDeepBeep(); // Play deep beep on initial signal
       setTimeout(showPopup, 5000);
       updateSignalDisplay();
     }, 8000);
