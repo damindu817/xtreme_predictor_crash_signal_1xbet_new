@@ -56,6 +56,31 @@
       0 0 15px rgba(138, 43, 226, 0.3),
       0 0 30px rgba(138, 43, 226, 0.2);
     animation: headerGlow 6s infinite alternate;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .header-box::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: shine 5s infinite;
+  }
+  
+  @keyframes shine {
+    0% { left: -60%; }
+    20% { left: 100%; }
+    100% { left: 100%; }
   }
   
   @keyframes headerGlow {
@@ -74,6 +99,8 @@
     margin: 0;
     font-weight: 600;
     line-height: 1.3;
+    position: relative;
+    z-index: 1;
   }
   
   .time-display {
@@ -85,17 +112,41 @@
     font-size: clamp(0.8rem, 3vw, 0.9rem);
     color: #ccc;
     gap: 10px;
+    position: relative;
   }
   
   .time-display span {
     background: rgba(20, 20, 40, 0.7);
-    padding: 8px 15px;
+    padding: 8px 15px 8px 35px;
     border-radius: 20px;
     border: 1px solid rgba(138, 43, 226, 0.3);
     flex: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    position: relative;
+    color: white;
+  }
+  
+  .time-display span::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: brightness(0) invert(1);
+  }
+  
+  #live-time::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z'/%3E%3C/svg%3E");
+  }
+  
+  #live-date::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z'/%3E%3C/svg%3E");
   }
   
   .signal-container {
@@ -184,9 +235,9 @@
   
   .countdown {
     font-size: clamp(1rem, 3.5vw, 1.2rem);
-    color: #00ffff;
+    color: white;
     font-weight: 500;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     transition: all 0.3s ease;
   }
   
@@ -194,9 +245,19 @@
     animation: blink 1s infinite;
   }
   
+  .countdown.warning {
+    color: #ff3366;
+    animation: flash 0.5s infinite alternate;
+  }
+  
   @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
+  }
+  
+  @keyframes flash {
+    0% { opacity: 1; text-shadow: 0 0 10px rgba(255, 51, 102, 0.5); }
+    100% { opacity: 0.8; text-shadow: 0 0 20px rgba(255, 51, 102, 0.8); }
   }
   
   .arrows {
@@ -228,6 +289,25 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .signal-box::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: shine 5s infinite 2s;
   }
   
   @keyframes signalBoxGlow {
@@ -313,27 +393,30 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #00ffff;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
   
   .loading-dots div:nth-child(1) {
     left: 8px;
+    background: linear-gradient(90deg, #00ffff, #a600ff);
     animation: loading-dots1 0.6s infinite;
   }
   
   .loading-dots div:nth-child(2) {
     left: 8px;
+    background: linear-gradient(90deg, #a600ff, #00ffff);
     animation: loading-dots2 0.6s infinite;
   }
   
   .loading-dots div:nth-child(3) {
     left: 32px;
+    background: linear-gradient(90deg, #00ffff, #a600ff);
     animation: loading-dots2 0.6s infinite;
   }
   
   .loading-dots div:nth-child(4) {
     left: 56px;
+    background: linear-gradient(90deg, #a600ff, #00ffff);
     animation: loading-dots3 0.6s infinite;
   }
   
@@ -686,7 +769,15 @@
       const countdown = Math.max(0, Math.floor((signalEndTime - now) / 1000));
       const min = String(Math.floor(countdown / 60)).padStart(2, '0');
       const sec = String(countdown % 60).padStart(2, '0');
-      document.getElementById("countdown").textContent = `End in: ${min}:${sec}`;
+      const countdownElement = document.getElementById("countdown");
+      countdownElement.textContent = `End in: ${min}:${sec}`;
+      
+      // Add warning effect for last 10 seconds
+      if (countdown <= 10) {
+        countdownElement.classList.add('warning');
+      } else {
+        countdownElement.classList.remove('warning');
+      }
     } 
     else if (currentPhase === 'upcoming') {
       const displayString = `${signalStartTime.getHours().toString().padStart(2, '0')}:${signalStartTime.getMinutes().toString().padStart(2, '0')} - ${signalEndTime.getHours().toString().padStart(2, '0')}:${signalEndTime.getMinutes().toString().padStart(2, '0')}`;
@@ -700,7 +791,15 @@
       const countdown = Math.max(0, Math.floor((signalStartTime - now) / 1000));
       const min = String(Math.floor(countdown / 60)).padStart(2, '0');
       const sec = String(countdown % 60).padStart(2, '0');
-      document.getElementById("countdown").textContent = `Upcoming in: ${min}:${sec}`;
+      const countdownElement = document.getElementById("countdown");
+      countdownElement.textContent = `Upcoming in: ${min}:${sec}`;
+      
+      // Add warning effect for last 10 seconds
+      if (countdown <= 10) {
+        countdownElement.classList.add('warning');
+      } else {
+        countdownElement.classList.remove('warning');
+      }
     }
   }
   
