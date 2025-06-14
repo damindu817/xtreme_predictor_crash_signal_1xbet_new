@@ -3,8 +3,20 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no"/>
-<title>Xtreme Crash Predictor : 1xbet</title>
+<title>Xtreme Crash Predictor PRO : 1xbet</title>
 <style>
+  :root {
+    --primary: #ff6b35; /* Orange - Crash theme */
+    --secondary: #f7c59f; /* Light orange */
+    --accent: #ef476f; /* Pinkish red */
+    --dark: #0b132b; /* Dark blue */
+    --darker: #080f25; /* Even darker */
+    --light: #f8f9fa; /* Light text */
+    --yellow: #ffd166; /* Yellow for warnings */
+    --green: #06d6a0; /* Green for success */
+    --purple: #8338ec; /* Purple for accents */
+  }
+  
   * {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -22,13 +34,13 @@
     width: 100%;
     height: 100%;
     overflow-x: hidden;
-    background: #0a0a1a;
-    color: white;
+    background: var(--darker);
+    color: var(--light);
     font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     text-align: center;
     background-image: 
-      radial-gradient(circle at 25% 25%, rgba(100, 0, 255, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(0, 200, 255, 0.15) 0%, transparent 50%);
+      radial-gradient(circle at 25% 25%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(239, 71, 111, 0.1) 0%, transparent 50%);
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
@@ -42,22 +54,79 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Animated background elements */
+  .bg-element {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+    z-index: 0;
+    animation: float 15s infinite linear;
+  }
+  
+  .bg-element:nth-child(1) {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--primary), transparent 70%);
+    top: -150px;
+    left: -150px;
+    animation-delay: 0s;
+  }
+  
+  .bg-element:nth-child(2) {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, var(--accent), transparent 70%);
+    bottom: -100px;
+    right: -100px;
+    animation-delay: 3s;
+  }
+  
+  .bg-element:nth-child(3) {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, var(--yellow), transparent 70%);
+    top: 30%;
+    right: -75px;
+    animation-delay: 6s;
+  }
+  
+  @keyframes float {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(10px, 10px) rotate(90deg); }
+    50% { transform: translate(0, 20px) rotate(180deg); }
+    75% { transform: translate(-10px, 10px) rotate(270deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
   }
   
   .header-box {
-    background: linear-gradient(135deg, #1a0033, #0d001a);
-    border: 1px solid rgba(138, 43, 226, 0.5);
+    background: linear-gradient(135deg, rgba(11, 19, 43, 0.8), rgba(8, 15, 37, 0.9));
+    border: 1px solid rgba(255, 107, 53, 0.3);
     border-radius: 15px;
     padding: 15px;
     margin: 10px 0;
     width: 100%;
     max-width: 500px;
     box-shadow: 
-      0 0 15px rgba(138, 43, 226, 0.3),
-      0 0 30px rgba(138, 43, 226, 0.2);
+      0 0 15px rgba(255, 107, 53, 0.2),
+      0 0 30px rgba(239, 71, 111, 0.1);
     animation: headerGlow 6s infinite alternate;
     position: relative;
     overflow: hidden;
+    z-index: 1;
+    backdrop-filter: blur(5px);
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .header-box:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 
+      0 0 20px rgba(255, 107, 53, 0.3),
+      0 0 40px rgba(239, 71, 111, 0.2);
   }
   
   .header-box::after {
@@ -84,23 +153,32 @@
   }
   
   @keyframes headerGlow {
-    0% { box-shadow: 0 0 15px rgba(138, 43, 226, 0.3), 0 0 30px rgba(138, 43, 226, 0.2); }
-    50% { box-shadow: 0 0 20px rgba(100, 0, 255, 0.4), 0 0 40px rgba(100, 0, 255, 0.3); }
-    100% { box-shadow: 0 0 15px rgba(138, 43, 226, 0.3), 0 0 30px rgba(138, 43, 226, 0.2); }
+    0% { box-shadow: 0 0 15px rgba(255, 107, 53, 0.2), 0 0 30px rgba(239, 71, 111, 0.1); }
+    50% { box-shadow: 0 0 20px rgba(255, 107, 53, 0.3), 0 0 40px rgba(239, 71, 111, 0.2); }
+    100% { box-shadow: 0 0 15px rgba(255, 107, 53, 0.2), 0 0 30px rgba(239, 71, 111, 0.1); }
   }
   
   .title {
     font-size: clamp(1.2rem, 4vw, 1.5rem);
     letter-spacing: 1px;
-    background: linear-gradient(90deg, #00fff7, #a600ff, #00fff7);
+    background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 10px rgba(0, 255, 247, 0.3);
+    text-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
     margin: 0;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.3;
     position: relative;
     z-index: 1;
+    text-transform: uppercase;
+  }
+  
+  .subtitle {
+    font-size: clamp(0.7rem, 3vw, 0.8rem);
+    color: var(--secondary);
+    margin-top: 5px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
   }
   
   .time-display {
@@ -110,22 +188,30 @@
     max-width: 500px;
     margin: 10px 0;
     font-size: clamp(0.8rem, 3vw, 0.9rem);
-    color: #ccc;
+    color: var(--secondary);
     gap: 10px;
     position: relative;
+    z-index: 1;
   }
   
   .time-display span {
     background: rgba(20, 20, 40, 0.7);
     padding: 8px 15px 8px 35px;
     border-radius: 20px;
-    border: 1px solid rgba(138, 43, 226, 0.3);
+    border: 1px solid rgba(255, 107, 53, 0.2);
     flex: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     position: relative;
     color: white;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+  }
+  
+  .time-display span:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }
   
   .time-display span::before {
@@ -154,6 +240,7 @@
     width: 100%;
     max-width: 500px;
     margin: 15px 0;
+    z-index: 1;
   }
   
   .circle {
@@ -165,44 +252,88 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    background: rgba(10, 10, 30, 0.7);
-    border: 2px solid rgba(138, 43, 226, 0.5);
+    background: rgba(11, 19, 43, 0.7);
+    border: 2px solid rgba(255, 107, 53, 0.3);
     box-shadow: 
-      0 0 20px rgba(138, 43, 226, 0.3),
-      inset 0 0 20px rgba(138, 43, 226, 0.2);
+      0 0 20px rgba(255, 107, 53, 0.2),
+      inset 0 0 20px rgba(239, 71, 111, 0.1);
     animation: circlePulse 4s infinite alternate;
-    transition: all 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(5px);
+    overflow: hidden;
+  }
+  
+  .circle::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0%,
+      rgba(255, 107, 53, 0.2) 30%,
+      transparent 70%
+    );
+    animation: rotate 10s linear infinite;
+    z-index: -1;
   }
   
   .circle.active-signal {
-    border-color: #ff3366;
+    border-color: var(--accent);
     box-shadow: 
-      0 0 30px rgba(255, 51, 102, 0.7),
-      inset 0 0 30px rgba(255, 51, 102, 0.5);
+      0 0 30px rgba(239, 71, 111, 0.5),
+      inset 0 0 30px rgba(239, 71, 111, 0.3);
     animation: circlePulseRed 4s infinite alternate;
+    transform: scale(1.05);
+  }
+  
+  .circle.active-signal::before {
+    background: conic-gradient(
+      from 0deg,
+      transparent 0%,
+      rgba(239, 71, 111, 0.3) 30%,
+      transparent 70%
+    );
+  }
+  
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
   
   @keyframes circlePulse {
-    0% { box-shadow: 0 0 20px rgba(138, 43, 226, 0.3), inset 0 0 20px rgba(138, 43, 226, 0.2); }
-    100% { box-shadow: 0 0 30px rgba(100, 0, 255, 0.4), inset 0 0 30px rgba(100, 0, 255, 0.3); }
+    0% { box-shadow: 0 0 20px rgba(255, 107, 53, 0.2), inset 0 0 20px rgba(239, 71, 111, 0.1); }
+    100% { box-shadow: 0 0 30px rgba(255, 107, 53, 0.3), inset 0 0 30px rgba(239, 71, 111, 0.2); }
   }
   
   @keyframes circlePulseRed {
-    0% { box-shadow: 0 0 30px rgba(255, 51, 102, 0.7), inset 0 0 30px rgba(255, 51, 102, 0.5); }
-    100% { box-shadow: 0 0 40px rgba(255, 51, 102, 0.9), inset 0 0 40px rgba(255, 51, 102, 0.7); }
+    0% { 
+      box-shadow: 0 0 30px rgba(239, 71, 111, 0.5), inset 0 0 30px rgba(239, 71, 111, 0.3);
+      transform: scale(1.05);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(239, 71, 111, 0.7), inset 0 0 40px rgba(239, 71, 111, 0.5);
+      transform: scale(1.07);
+    }
+    100% { 
+      box-shadow: 0 0 30px rgba(239, 71, 111, 0.5), inset 0 0 30px rgba(239, 71, 111, 0.3);
+      transform: scale(1.05);
+    }
   }
   
   .signal-content {
     text-align: center;
     padding: 15px;
     width: 100%;
+    position: relative;
+    z-index: 1;
   }
   
   .next-signal {
     font-size: clamp(1.1rem, 4vw, 1.4rem);
     font-weight: 600;
     margin-bottom: 10px;
-    color: #ffffff;
+    color: var(--light);
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     transition: all 0.3s ease;
     word-break: break-word;
@@ -216,26 +347,27 @@
   }
   
   .system-title {
-    background: linear-gradient(90deg, #8a2be2, #00bfff);
+    background: linear-gradient(90deg, var(--primary), var(--purple));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
   }
   
   .system-loading {
-    background: linear-gradient(90deg, #00ffff, #ff00ff);
+    background: linear-gradient(90deg, var(--yellow), var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   
   .please-wait {
-    color: #ffffff;
+    color: var(--secondary);
     font-size: clamp(0.9rem, 3vw, 1.1rem);
     margin-top: 5px;
   }
   
   .countdown {
     font-size: clamp(1rem, 3.5vw, 1.2rem);
-    color: white;
+    color: var(--light);
     font-weight: 500;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     transition: all 0.3s ease;
@@ -246,7 +378,7 @@
   }
   
   .countdown.warning {
-    color: #ff3366;
+    color: var(--accent);
     animation: flash 0.5s infinite alternate;
   }
   
@@ -256,15 +388,18 @@
   }
   
   @keyframes flash {
-    0% { opacity: 1; text-shadow: 0 0 10px rgba(255, 51, 102, 0.5); }
-    100% { opacity: 0.8; text-shadow: 0 0 20px rgba(255, 51, 102, 0.8); }
+    0% { opacity: 1; text-shadow: 0 0 10px rgba(239, 71, 111, 0.5); }
+    100% { opacity: 0.8; text-shadow: 0 0 20px rgba(239, 71, 111, 0.8); }
   }
   
   .arrows {
     font-size: clamp(1.5rem, 6vw, 2rem);
-    color: #ff3366;
+    color: var(--accent);
     margin: 10px 0;
     animation: arrowPulse 1.5s infinite alternate;
+    text-shadow: 0 0 10px rgba(239, 71, 111, 0.5);
+    position: relative;
+    z-index: 1;
   }
   
   @keyframes arrowPulse {
@@ -273,8 +408,8 @@
   }
   
   .signal-box {
-    background: linear-gradient(135deg, #1a0033, #0d001a);
-    border: 1px solid rgba(0, 255, 255, 0.5);
+    background: linear-gradient(135deg, rgba(11, 19, 43, 0.8), rgba(8, 15, 37, 0.9));
+    border: 1px solid rgba(255, 214, 102, 0.3);
     border-radius: 12px;
     padding: 12px;
     margin: 15px 0;
@@ -282,8 +417,8 @@
     max-width: 500px;
     font-size: clamp(0.9rem, 3.5vw, 1.1rem);
     font-weight: 500;
-    color: #00ffff;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    color: var(--yellow);
+    box-shadow: 0 0 15px rgba(255, 214, 102, 0.2);
     animation: signalBoxGlow 3s infinite alternate;
     display: flex;
     align-items: center;
@@ -291,6 +426,14 @@
     gap: 8px;
     position: relative;
     overflow: hidden;
+    z-index: 1;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+  }
+  
+  .signal-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(255, 214, 102, 0.3);
   }
   
   .signal-box::after {
@@ -311,8 +454,8 @@
   }
   
   @keyframes signalBoxGlow {
-    0% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
-    100% { box-shadow: 0 0 25px rgba(0, 255, 255, 0.5); }
+    0% { box-shadow: 0 0 15px rgba(255, 214, 102, 0.2); }
+    100% { box-shadow: 0 0 25px rgba(255, 214, 102, 0.3); }
   }
   
   .btns {
@@ -322,6 +465,7 @@
     margin: 20px 0;
     width: 100%;
     max-width: 500px;
+    z-index: 1;
   }
   
   .btn {
@@ -331,31 +475,65 @@
     text-decoration: none;
     font-weight: 500;
     font-size: clamp(0.8rem, 3vw, 0.9rem);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     max-width: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+  }
+  
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: 0.5s;
+  }
+  
+  .btn:hover::before {
+    left: 100%;
   }
   
   .btn-whatsapp {
     background: rgba(37, 211, 102, 0.1);
-    border: 1px solid rgba(37, 211, 102, 0.5);
+    border: 1px solid rgba(37, 211, 102, 0.3);
     color: #25D366;
-    box-shadow: 0 0 15px rgba(37, 211, 102, 0.2);
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.1);
+  }
+  
+  .btn-whatsapp:hover {
+    background: rgba(37, 211, 102, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(37, 211, 102, 0.2);
   }
   
   .btn-telegram {
     background: rgba(0, 136, 204, 0.1);
-    border: 1px solid rgba(0, 136, 204, 0.5);
+    border: 1px solid rgba(0, 136, 204, 0.3);
     color: #0088cc;
-    box-shadow: 0 0 15px rgba(0, 136, 204, 0.2);
+    box-shadow: 0 0 15px rgba(0, 136, 204, 0.1);
+  }
+  
+  .btn-telegram:hover {
+    background: rgba(0, 136, 204, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0, 136, 204, 0.2);
   }
   
   .btn:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px);
   }
   
   .btn i {
@@ -366,16 +544,24 @@
     width: 100%;
     padding: 15px;
     font-size: clamp(0.7rem, 3vw, 0.8rem);
-    color: #888;
-    background: rgba(10, 10, 30, 0.7);
-    border-top: 1px solid rgba(138, 43, 226, 0.3);
+    color: var(--secondary);
+    background: rgba(11, 19, 43, 0.7);
+    border-top: 1px solid rgba(255, 107, 53, 0.2);
     margin-top: auto;
+    backdrop-filter: blur(5px);
+    z-index: 1;
   }
   
   footer a {
-    color: #a600ff;
+    color: var(--primary);
     text-decoration: none;
     font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  footer a:hover {
+    color: var(--accent);
+    text-shadow: 0 0 10px rgba(239, 71, 111, 0.3);
   }
   
   /* Loading animation */
@@ -398,25 +584,25 @@
   
   .loading-dots div:nth-child(1) {
     left: 8px;
-    background: linear-gradient(90deg, #00ffff, #a600ff);
+    background: var(--yellow);
     animation: loading-dots1 0.6s infinite;
   }
   
   .loading-dots div:nth-child(2) {
     left: 8px;
-    background: linear-gradient(90deg, #a600ff, #00ffff);
+    background: var(--accent);
     animation: loading-dots2 0.6s infinite;
   }
   
   .loading-dots div:nth-child(3) {
     left: 32px;
-    background: linear-gradient(90deg, #00ffff, #a600ff);
+    background: var(--yellow);
     animation: loading-dots2 0.6s infinite;
   }
   
   .loading-dots div:nth-child(4) {
     left: 56px;
-    background: linear-gradient(90deg, #a600ff, #00ffff);
+    background: var(--accent);
     animation: loading-dots3 0.6s infinite;
   }
   
@@ -460,15 +646,16 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: linear-gradient(135deg, #1a0033, #0d001a);
-    border: 1px solid rgba(138, 43, 226, 0.5);
+    background: linear-gradient(135deg, rgba(11, 19, 43, 0.95), rgba(8, 15, 37, 0.95));
+    border: 1px solid rgba(255, 107, 53, 0.5);
     border-radius: 15px;
     padding: 20px;
     width: 90%;
     max-width: 400px;
-    box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
+    box-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
     z-index: 1001;
     animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    backdrop-filter: blur(10px);
   }
   
   @keyframes popIn {
@@ -483,17 +670,20 @@
   
   #popupBox h3 {
     margin-top: 0;
-    color: #00ffff;
+    color: var(--yellow);
     font-size: 1.2em;
     text-align: center;
-    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 214, 102, 0.3);
     padding-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
   
   #popupBox p {
     font-size: 0.9em;
     line-height: 1.6;
     margin-bottom: 15px;
+    color: var(--secondary);
   }
   
   #popupBox .close-btn {
@@ -502,28 +692,122 @@
     right: 15px;
     background: none;
     border: none;
-    color: #888;
+    color: var(--secondary);
     font-size: 1.5em;
     cursor: pointer;
     transition: color 0.3s;
   }
   
   #popupBox .close-btn:hover {
-    color: #ff3366;
+    color: var(--accent);
   }
 
   .calc-icon {
-    color: #00ffff;
+    color: var(--yellow);
     font-size: 1.1em;
   }
+  
+  /* New: Signal strength indicator */
+  .signal-strength {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  
+  .signal-bar {
+    width: 6px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    animation: signalBarPulse 2s infinite;
+  }
+  
+  .signal-bar:nth-child(1) {
+    animation-delay: 0.1s;
+    height: 10px;
+  }
+  
+  .signal-bar:nth-child(2) {
+    animation-delay: 0.3s;
+    height: 15px;
+  }
+  
+  .signal-bar:nth-child(3) {
+    animation-delay: 0.5s;
+    height: 20px;
+  }
+  
+  .signal-bar:nth-child(4) {
+    animation-delay: 0.7s;
+    height: 15px;
+  }
+  
+  .signal-bar:nth-child(5) {
+    animation-delay: 0.9s;
+    height: 10px;
+  }
+  
+  @keyframes signalBarPulse {
+    0%, 100% { background: rgba(255, 255, 255, 0.2); }
+    50% { background: var(--green); }
+  }
+  
+  /* New: Floating coins animation */
+  .floating-coins {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  
+  .coin {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, var(--yellow), var(--primary));
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: floatCoin linear infinite;
+  }
+  
+  @keyframes floatCoin {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.7;
+    }
+    90% {
+      opacity: 0.7;
+    }
+    100% {
+      transform: translateY(-100px) rotate(360deg);
+      opacity: 0;
+    }
+  }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 <div class="container">
+  <!-- Background elements -->
+  <div class="bg-element"></div>
+  <div class="bg-element"></div>
+  <div class="bg-element"></div>
+  
+  <!-- Floating coins -->
+  <div class="floating-coins" id="floatingCoins"></div>
+  
   <div class="header-box">
-    <h1 class="title">Xtreme Crash Predictor : 1xbet</h1>
+    <h1 class="title">Xtreme Crash Predictor PRO</h1>
+    <div class="subtitle">1xbet Advanced Signal System</div>
   </div>
   
   <div class="time-display">
@@ -531,7 +815,7 @@
     <span id="live-date">2023-01-01</span>
   </div>
   
-  <div class="arrows">&lt;&lt;&lt;</div>
+  <div class="arrows">&darr; SIGNAL INCOMING &darr;</div>
   
   <div class="signal-container">
     <div class="circle" id="signal-circle">
@@ -540,11 +824,18 @@
         <div class="system-text system-loading">INITIALIZING</div>
         <div class="please-wait">Please wait</div>
         <div class="loading-dots"><div></div><div></div><div></div><div></div></div>
+        <div class="signal-strength">
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+        </div>
       </div>
     </div>
   </div>
   
-  <div class="arrows">&gt;&gt;&gt;</div>
+  <div class="arrows">&uarr; BET NOW &uarr;</div>
   
   <div class="signal-box" id="signal-box">
     <i class="fas fa-chart-line calc-icon"></i> Calculating optimal odds...
@@ -560,7 +851,7 @@
   </div>
   
   <footer>
-    POWERED BY <a href="#" target="_blank">XTREME PREDICTOR</a>
+    POWERED BY <a href="#" target="_blank">XTREME PREDICTOR TECHNOLOGY</a>
   </footer>
 </div>
 
@@ -571,7 +862,7 @@
   <p>මෙම ක්‍රෑෂ් ක්‍රීඩාව සඳහා ඔබට ලබාදෙන සංඥා වලට අනුව ක්‍රීඩා කිරීමේදී, එකම මුදලක් භාවිතා කිරීම සුදුසුම ක්‍රමය වේ.</p>
   <p>"මාර්ටින් ගේල් (Martingale)" ක්‍රමය හෝ ඊට සමාන ගණනාවර්ධන ක්‍රමවේදයන් භාවිතයෙන් ක්‍රීඩා කිරීමෙන් ඔබගේ මුදල් කළමනාකරණය පාලනයෙන් පිට විය හැකි අතර, මෙම ක්‍රමය ක්‍රීඩාවේ ඇල්ගොරිතමය එය හඳුනාගෙන ඔබ මුදල් ගුණ කරන ආකාරය අනුව ක්‍රීඩාව ඔබට ජය ලබාදීම වළක්වනු ඇත.</p>
   <p>ඒ වෙනුවට, එකම මුදලක් යොදා ලබාදෙන සංඥාවට අනුව ක්‍රීඩා කිරීම සුදුසුයි.</p>
-  <p style="text-align: center; color: #a600ff; font-weight: 500;">- Xtreme Predictor Team -</p>
+  <p style="text-align: center; color: var(--purple); font-weight: 500; margin-top: 15px;">- Xtreme Predictor Team -</p>
 </div>
 
 <script>
@@ -597,6 +888,31 @@
   document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
   });
+  
+  // Create floating coins
+  function createCoins() {
+    const container = document.getElementById('floatingCoins');
+    const coinCount = 15;
+    
+    for (let i = 0; i < coinCount; i++) {
+      const coin = document.createElement('div');
+      coin.className = 'coin';
+      
+      // Random position
+      const left = Math.random() * 100;
+      const size = 10 + Math.random() * 15;
+      const duration = 5 + Math.random() * 10;
+      const delay = Math.random() * 5;
+      
+      coin.style.left = `${left}%`;
+      coin.style.width = `${size}px`;
+      coin.style.height = `${size}px`;
+      coin.style.animationDuration = `${duration}s`;
+      coin.style.animationDelay = `${delay}s`;
+      
+      container.appendChild(coin);
+    }
+  }
   
   // Update time
   function updateTime() {
@@ -728,6 +1044,7 @@
       hasPlayedDoubleBeep = false;
       signalCircle.classList.add('active-signal');
       playDoubleBeep();
+      createCoins(); // Add coins animation when signal starts
     }
     
     // Check if signal period has ended
@@ -750,7 +1067,16 @@
       }, 8000);
       
       // Show loading dots after clearing previous content
-      signalContent.innerHTML = '<div class="loading-dots"><div></div><div></div><div></div><div></div></div>';
+      signalContent.innerHTML = `
+        <div class="loading-dots"><div></div><div></div><div></div><div></div></div>
+        <div class="signal-strength">
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+        </div>
+      `;
       signalBox.innerHTML = '<i class="fas fa-chart-line calc-icon"></i> Calculating optimal odds...';
       return;
     }
@@ -762,6 +1088,13 @@
       signalContent.innerHTML = `
         <div class="next-signal">${displayString}</div>
         <div class="countdown" id="countdown">End in: 00:00</div>
+        <div class="signal-strength">
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+        </div>
       `;
       
       // Update countdown to signal end
@@ -784,6 +1117,13 @@
       signalContent.innerHTML = `
         <div class="next-signal">${displayString}</div>
         <div class="countdown" id="countdown">Upcoming in: 00:00</div>
+        <div class="signal-strength">
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+        </div>
       `;
       
       // Update countdown to next signal
@@ -842,6 +1182,9 @@
       popup.style.animation = '';
     }, 300);
   }
+  
+  // Initialize floating coins
+  createCoins();
 </script>
 </body>
 </html>
