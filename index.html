@@ -120,6 +120,14 @@
       0 0 20px rgba(138, 43, 226, 0.3),
       inset 0 0 20px rgba(138, 43, 226, 0.2);
     animation: circlePulse 4s infinite alternate;
+    transition: border-color 0.3s ease;
+  }
+  
+  .circle.active-signal {
+    border-color: #ff3366;
+    box-shadow: 
+      0 0 20px rgba(255, 51, 102, 0.5),
+      inset 0 0 20px rgba(255, 51, 102, 0.3);
   }
   
   @keyframes circlePulse {
@@ -136,11 +144,40 @@
   .next-signal {
     font-size: clamp(1.1rem, 4vw, 1.4rem);
     font-weight: 600;
-    color: #fff;
     margin-bottom: 10px;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     transition: all 0.3s ease;
     word-break: break-word;
+  }
+  
+  .next-signal.active-signal {
+    color: #ff3366;
+    text-shadow: 0 0 10px rgba(255, 51, 102, 0.5);
+  }
+  
+  .system-text {
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+  
+  .system-title {
+    background: linear-gradient(90deg, #8a2be2, #00bfff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .system-loading {
+    background: linear-gradient(90deg, #00ffff, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .please-wait {
+    color: #ffffff;
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    margin-top: 5px;
   }
   
   .countdown {
@@ -185,11 +222,27 @@
     color: #00ffff;
     box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
     animation: signalBoxGlow 3s infinite alternate;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .signal-box.active-signal {
+    border-color: #ff3366;
+    color: #ff3366;
+    box-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
+    animation: signalBoxGlowRed 3s infinite alternate;
   }
   
   @keyframes signalBoxGlow {
     0% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
     100% { box-shadow: 0 0 25px rgba(0, 255, 255, 0.5); }
+  }
+  
+  @keyframes signalBoxGlowRed {
+    0% { box-shadow: 0 0 15px rgba(255, 51, 102, 0.5); }
+    100% { box-shadow: 0 0 25px rgba(255, 51, 102, 0.7); }
   }
   
   .btns {
@@ -385,6 +438,15 @@
   #popupBox .close-btn:hover {
     color: #ff3366;
   }
+
+  .calc-icon {
+    color: #00ffff;
+    font-size: 1.1em;
+  }
+
+  .calc-icon.active-signal {
+    color: #ff3366;
+  }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -403,17 +465,21 @@
   <div class="arrows">&lt;&lt;&lt;</div>
   
   <div class="signal-container">
-    <div class="circle">
-      <div class="signal-content">
-        <div class="next-signal" id="next-signal">Next Signal Loading</div>
-        <div class="countdown" id="countdown">Next in: 00:00</div>
+    <div class="circle" id="signal-circle">
+      <div class="signal-content" id="signal-content">
+        <div class="system-text system-title">SYSTEM</div>
+        <div class="system-text system-loading">INITIALIZING</div>
+        <div class="please-wait">Please wait</div>
+        <div class="loading-dots"><div></div><div></div><div></div><div></div></div>
       </div>
     </div>
   </div>
   
   <div class="arrows">&gt;&gt;&gt;</div>
   
-  <div class="signal-box">Odd - 5× | Guaranteed Win</div>
+  <div class="signal-box" id="signal-box">
+    <i class="fas fa-bolt calc-icon"></i> Calculating optimal odds...
+  </div>
   
   <div class="btns">
     <a href="https://chat.whatsapp.com/Jiyuy808D5Q2a8P7IEW72g" class="btn btn-whatsapp" target="_blank">
@@ -474,82 +540,206 @@
   
   // Signal prediction logic
   const now = new Date();
-  const anchorTime = new Date(now);
-  anchorTime.setHours(20, 38, 0, 0);
-  if (now < anchorTime) {
-    anchorTime.setDate(anchorTime.getDate() - 1);
-  }
-  const intervalMs = 5 * 60 * 1000;
-  let lastSignalBlockTime = null;
-  let showLoading = false;
+  const signalPattern = [
+    { minutes: 3, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
+    { minutes: 8, duration: 1, odds: "3× | High Probability", icon: "chart-line" },
+    { minutes: 13, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
+    { minutes: 18, duration: 1, odds: "3× | High Probability", icon: "chart-line" },
+    { minutes: 23, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
+    { minutes: 28, duration: 1, odds: "3× | High Probability", icon: "chart-line" },
+    { minutes: 33, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
+    { minutes: 38, duration: 1, odds: "3× | High Probability", icon: "chart-line" },
+    { minutes: 43, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
+    { minutes: 48, duration: 1, odds: "3× | High Probability", icon: "chart-line" },
+    { minutes: 53, duration: 1, odds: "5× | Guaranteed Win", icon: "bolt" },
+    { minutes: 58, duration: 1, odds: "3× | High Probability", icon: "chart-line" }
+  ];
+  
+  let currentPhase = 'initializing';
+  let signalStartTime = null;
+  let signalEndTime = null;
+  let nextSignalTime = null;
+  let hasPlayedDoubleBeep = false;
+  let initializationComplete = false;
+  let currentSignalIndex = 0;
+  let initialLoadComplete = false;
+  let popupShown = false;
   
   const alertSound = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+  const signalCircle = document.getElementById("signal-circle");
+  const signalBox = document.getElementById("signal-box");
   
-  function updateNextSignal() {
-    const now = new Date();
-    let diff = now - anchorTime;
-    if (diff < 0) diff = 0;
-    
-    const nextBlockTime = new Date(anchorTime.getTime() + Math.ceil(diff / intervalMs) * intervalMs);
-    const startTime = new Date(nextBlockTime);
-    const endTime = new Date(nextBlockTime.getTime() + 1 * 60 * 1000);
-    
-    const displayString = `${startTime.getHours().toString().padStart(2, '0')}:${startTime.getMinutes().toString().padStart(2, '0')} - ${endTime.getHours().toString().padStart(2, '0')}:${endTime.getMinutes().toString().padStart(2, '0')}`;
-    
-    const nextSignalElem = document.getElementById("next-signal");
-    const countdownElem = document.getElementById("countdown");
-    
-    const timeDiffSec = Math.abs(startTime - now) / 1000;
-    
-    // Update signal display
-    if (!lastSignalBlockTime || nextBlockTime.getTime() !== lastSignalBlockTime.getTime()) {
-      showLoading = true;
-      lastSignalBlockTime = nextBlockTime;
-      
-      // Show loading animation
-      nextSignalElem.innerHTML = '<div class="loading-dots"><div></div><div></div><div></div><div></div></div>';
-      
-      setTimeout(() => {
-        showLoading = false;
-        nextSignalElem.innerHTML = displayString;
-        try {
-          alertSound.play().catch(e => console.log("Sound playback prevented:", e));
-        } catch(e) {
-          console.log("Sound error:", e);
-        }
-      }, 3000);
-    }
-    
-    if (!showLoading) {
-      nextSignalElem.textContent = displayString;
-    }
-    
-    // Update countdown
-    const countdown = Math.max(0, Math.floor((startTime - now) / 1000));
-    const min = String(Math.floor(countdown / 60)).padStart(2, '0');
-    const sec = String(countdown % 60).padStart(2, '0');
-    countdownElem.textContent = `Next in: ${min}:${sec}`;
-    
-    // Blink effect when close to signal
-    if (countdown <= 10) {
-      countdownElem.classList.add("blink");
-      nextSignalElem.style.color = "#ff3366";
-      nextSignalElem.style.textShadow = "0 0 10px rgba(255, 51, 102, 0.7)";
-    } else {
-      countdownElem.classList.remove("blink");
-      nextSignalElem.style.color = "#ffffff";
-      nextSignalElem.style.textShadow = "0 0 10px rgba(255, 255, 255, 0.3)";
+  function playBeep() {
+    try {
+      const sound = alertSound.cloneNode();
+      sound.play().catch(e => console.log("Sound playback prevented:", e));
+    } catch(e) {
+      console.log("Sound error:", e);
     }
   }
   
-  setInterval(updateNextSignal, 1000);
-  updateNextSignal();
+  function playDoubleBeep() {
+    if (!hasPlayedDoubleBeep) {
+      playBeep();
+      setTimeout(playBeep, 300);
+      hasPlayedDoubleBeep = true;
+    }
+  }
+  
+  function calculateNextSignal(currentTime) {
+    const currentHours = currentTime.getHours();
+    const currentMinutes = currentTime.getMinutes();
+    
+    // Find next signal in current hour
+    for (let i = 0; i < signalPattern.length; i++) {
+      if (signalPattern[i].minutes > currentMinutes) {
+        const nextSignal = new Date(currentTime);
+        nextSignal.setMinutes(signalPattern[i].minutes, 0, 0);
+        const endTime = new Date(nextSignal);
+        endTime.setMinutes(nextSignal.getMinutes() + signalPattern[i].duration);
+        return {
+          start: nextSignal,
+          end: endTime,
+          odds: signalPattern[i].odds,
+          icon: signalPattern[i].icon,
+          index: i
+        };
+      }
+    }
+    
+    // If no more signals this hour, get first signal of next hour
+    const nextHour = new Date(currentTime);
+    nextHour.setHours(nextHour.getHours() + 1);
+    nextHour.setMinutes(signalPattern[0].minutes, 0, 0);
+    const endTime = new Date(nextHour);
+    endTime.setMinutes(nextHour.getMinutes() + signalPattern[0].duration);
+    return {
+      start: nextHour,
+      end: endTime,
+      odds: signalPattern[0].odds,
+      icon: signalPattern[0].icon,
+      index: 0
+    };
+  }
+  
+  function updateSignalDisplay() {
+    const now = new Date();
+    const signalContent = document.getElementById("signal-content");
+    
+    // Handle initialization phase
+    if (currentPhase === 'initializing' && !initializationComplete) {
+      if (now - new Date() >= 8000) {
+        currentPhase = 'loading';
+        initializationComplete = true;
+        setTimeout(() => {
+          const nextSignal = calculateNextSignal(now);
+          signalStartTime = nextSignal.start;
+          signalEndTime = nextSignal.end;
+          currentSignalIndex = nextSignal.index;
+          signalBox.innerHTML = `<i class="fas fa-${nextSignal.icon} calc-icon"></i> Odd - ${nextSignal.odds}`;
+          currentPhase = 'upcoming';
+          initialLoadComplete = true;
+          playBeep();
+          setTimeout(showPopup, 5000);
+        }, 8000);
+      }
+      return;
+    }
+    
+    // Handle loading phase (only between signals, not after initial load)
+    if (currentPhase === 'loading' && initialLoadComplete) {
+      signalContent.innerHTML = '<div class="loading-dots"><div></div><div></div><div></div><div></div></div>';
+      signalBox.innerHTML = '<i class="fas fa-bolt calc-icon"></i> Calculating optimal odds...';
+      return;
+    }
+    
+    // Check if we need to transition to signal phase
+    if (currentPhase === 'upcoming' && now >= signalStartTime) {
+      currentPhase = 'signal';
+      hasPlayedDoubleBeep = false;
+      signalCircle.classList.add('active-signal');
+      signalBox.classList.add('active-signal');
+      document.querySelector('.calc-icon').classList.add('active-signal');
+      playDoubleBeep();
+    }
+    
+    // Check if signal period has ended
+    if (currentPhase === 'signal' && now >= signalEndTime) {
+      currentPhase = 'loading';
+      signalCircle.classList.remove('active-signal');
+      signalBox.classList.remove('active-signal');
+      document.querySelector('.calc-icon').classList.remove('active-signal');
+      setTimeout(() => {
+        const nextSignal = calculateNextSignal(now);
+        signalStartTime = nextSignal.start;
+        signalEndTime = nextSignal.end;
+        currentSignalIndex = nextSignal.index;
+        signalBox.innerHTML = `<i class="fas fa-${nextSignal.icon} calc-icon"></i> Odd - ${nextSignal.odds}`;
+        currentPhase = 'upcoming';
+        playBeep();
+      }, 8000);
+    }
+    
+    // Update display based on current phase
+    const currentSignal = signalPattern[currentSignalIndex];
+    if (currentPhase === 'signal') {
+      const displayString = `${signalStartTime.getHours().toString().padStart(2, '0')}:${signalStartTime.getMinutes().toString().padStart(2, '0')} - ${signalEndTime.getHours().toString().padStart(2, '0')}:${signalEndTime.getMinutes().toString().padStart(2, '0')}`;
+      
+      signalContent.innerHTML = `
+        <div class="next-signal active-signal">${displayString}</div>
+        <div class="countdown" id="countdown">End in: 00:00</div>
+      `;
+      
+      // Update countdown to signal end
+      const countdown = Math.max(0, Math.floor((signalEndTime - now) / 1000));
+      const min = String(Math.floor(countdown / 60)).padStart(2, '0');
+      const sec = String(countdown % 60).padStart(2, '0');
+      document.getElementById("countdown").textContent = `End in: ${min}:${sec}`;
+    } 
+    else if (currentPhase === 'upcoming') {
+      const displayString = `${signalStartTime.getHours().toString().padStart(2, '0')}:${signalStartTime.getMinutes().toString().padStart(2, '0')} - ${signalEndTime.getHours().toString().padStart(2, '0')}:${signalEndTime.getMinutes().toString().padStart(2, '0')}`;
+      
+      signalContent.innerHTML = `
+        <div class="next-signal">${displayString}</div>
+        <div class="countdown" id="countdown">Upcoming in: 00:00</div>
+      `;
+      
+      // Update countdown to next signal
+      const countdown = Math.max(0, Math.floor((signalStartTime - now) / 1000));
+      const min = String(Math.floor(countdown / 60)).padStart(2, '0');
+      const sec = String(countdown % 60).padStart(2, '0');
+      document.getElementById("countdown").textContent = `Upcoming in: ${min}:${sec}`;
+    }
+  }
+  
+  // Initialize the system
+  setTimeout(() => {
+    currentPhase = 'loading';
+    updateSignalDisplay();
+    setTimeout(() => {
+      const nextSignal = calculateNextSignal(new Date());
+      signalStartTime = nextSignal.start;
+      signalEndTime = nextSignal.end;
+      currentSignalIndex = nextSignal.index;
+      signalBox.innerHTML = `<i class="fas fa-${nextSignal.icon} calc-icon"></i> Odd - ${nextSignal.odds}`;
+      currentPhase = 'upcoming';
+      initialLoadComplete = true;
+      playBeep();
+      setTimeout(showPopup, 5000);
+      updateSignalDisplay();
+    }, 8000);
+  }, 8000);
+  
+  setInterval(updateSignalDisplay, 1000);
   
   // Popup functions
   function showPopup() {
-    document.getElementById('popupOverlay').style.display = 'block';
-    const popup = document.getElementById('popupBox');
-    popup.style.display = 'block';
+    if (!popupShown) {
+      document.getElementById('popupOverlay').style.display = 'block';
+      const popup = document.getElementById('popupBox');
+      popup.style.display = 'block';
+      popupShown = true;
+    }
   }
   
   function closePopup() {
@@ -562,11 +752,6 @@
       popup.style.animation = '';
     }, 300);
   }
-  
-  // Show popup after delay
-  window.addEventListener('load', function() {
-    setTimeout(showPopup, 5000);
-  });
 </script>
 </body>
 </html>
